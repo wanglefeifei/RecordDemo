@@ -79,10 +79,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.record_bt:
                 try {
+                    File file = new File(path);
+                    if(file.exists()){
+                        file.delete();
+                    }
                     recorder = new MediaRecorder();
 //                    recorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
-                    //
-                    recorder.setAudioSource(MediaRecorder.AudioSource.VOICE_COMMUNICATION);
+//                    recorder.setAudioSource(MediaRecorder.AudioSource.VOICE_COMMUNICATION);
+//                    recorder.setAudioSource(MediaRecorder.AudioSource.VOICE_CALL);//通话中，对方、自己声音都会录下来
+                    recorder.setAudioSource(MediaRecorder.AudioSource.VOICE_DOWNLINK);//只录取扬声器、听筒声音
+//                    recorder.setAudioSource(MediaRecorder.AudioSource.VOICE_UPLINK);
+//                    recorder.setAudioSource(MediaRecorder.AudioSource.VOICE_RECOGNITION);//跟MIC一样，只录取麦克风声音，但扬声器太大声的话也会录到
                     recorder.setOutputFile(path);
 
                     // 设置录制的声音的输出格式（必须在设置声音编码格式之前设置）
